@@ -39,6 +39,6 @@ export async function GET() {
     );
   } catch (error) {
     console.error(error);
-    return new NextResponse("Something went wrong", { status: 500 });
+    return new NextResponse("Something went wrong" +error, { status: 500 });
   }
 }
