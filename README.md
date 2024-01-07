@@ -21,3 +21,7 @@ npx prisma generate
 ```bash
 npx prisma db push
 ```
+
+### Refer to this prisma doc here
+
+https://www.prisma.io/docs/orm/prisma-schema/data-model/models
