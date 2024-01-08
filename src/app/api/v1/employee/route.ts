@@ -12,6 +12,7 @@ export async function POST(request: NextRequest) {
       department,
       emailAddress,
       password,
+      gender,
       income,
     } = await request.json();
 
@@ -19,7 +20,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { success: false, message: "Please provide all fields" },
         {
-          status: 400,
+          status: 409,
         }
       );
     }
@@ -52,6 +53,7 @@ export async function POST(request: NextRequest) {
         phoneNumber,
         role,
         department,
+        gender,
         emailAddress,
         password: hashedPassword,
         income: {
