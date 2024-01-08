@@ -26,11 +26,15 @@ npx prisma db push
 
 https://www.prisma.io/docs/orm/prisma-schema/data-model/models
 
-### Read here for updating Model fields 
+# How to migrate existing data to match your Prisma schema
+
+Migrating your database over time is an important part of the development cycle. During development, you will need to update your Prisma schema file (for example, to add new fields), then update the data in your development environment’s database, and eventually push both the updated schema and the new data to the production database.
+
+# Referrence here 
 https://www.prisma.io/docs/orm/overview/databases/mongodb#how-to-migrate-existing-data-to-match-your-prisma-schema
 
 
-### After adding a new Field on Schema 
+# After adding a new Field on Schema 
 
 ```bash
 model User {
@@ -54,7 +58,7 @@ giving it default value like below
 
 Then regenerate your Prisma Client using the npx prisma generate command. Next, update your application to reflect the new field, and redeploy your app.
 
-As the phoneNumber field is optional, you can still query the old users where the phone number has not been defined. The records in the database will be updated "on demand" as the application's users begin to enter their phone number in the new field.
+<p>As the phoneNumber field is optional, you can still query the old users where the phone number has not been defined. The records in the database will be updated "on demand" as the application's users begin to enter their phone number in the new field.</p>
 
 Another option is to add a default value on a required field, for example
 
