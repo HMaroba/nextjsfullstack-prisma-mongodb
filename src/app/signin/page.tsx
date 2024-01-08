@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 
-type dataType = { email: string; password: string };
+type dataType = { emailAddress: string; password: string };
 
 function Form() {
   const {
@@ -14,7 +14,7 @@ function Form() {
     handleSubmit,
   } = useForm({
     defaultValues: {
-      email: "",
+      emailAddress: "",
       password: "",
     },
   });
@@ -46,7 +46,7 @@ function Form() {
             id="login-email"
             type="email"
             placeholder="Enter your email"
-            {...register("email", {
+            {...register("emailAddress", {
               required: "Email is required",
               pattern: {
                 value: /^\S+@\S+$/i,
@@ -55,9 +55,9 @@ function Form() {
             })}
           />
 
-          {errors.email && (
+          {errors.emailAddress && (
             <div className="mt-0.5 text-xs text-red-600">
-              {errors.email.message}
+              {errors.emailAddress.message}
             </div>
           )}
           </div>
