@@ -25,3 +25,6 @@ npx prisma db push
 ### Refer to this prisma doc here
 
 https://www.prisma.io/docs/orm/prisma-schema/data-model/models
+
+### Read here for updating Model fields 
+https://www.prisma.io/docs/orm/overview/databases/mongodb#how-to-migrate-existing-data-to-match-your-prisma-schema

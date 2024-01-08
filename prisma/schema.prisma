@@ -34,7 +34,7 @@ model Employee {
   phoneNumber   String @unique
   role  String
   department String
-  gender String
+  gender String @default("Male")
   emailAddress String @unique
   password String
   income        Income[]  // Define the array of income objects
