@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
+import CustomButton from "../(components)/FormComponents/Button";
 
 type dataType = { emailAddress: string; password: string };
 
@@ -93,7 +94,7 @@ function Form() {
             )}
           </div>
 
-     
+          <CustomButton name="Submit" />
         </form>
       </div>
     </div>
