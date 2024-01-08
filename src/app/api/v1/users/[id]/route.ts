@@ -47,7 +47,7 @@ export async function DELETE(
         success: false,
       });
     }
-    await prisma.users.delete({
+    await prisma.user.delete({
       where: { id: String(id) },
     });
     return NextResponse.json({ msg: "User deleted successfully" });
