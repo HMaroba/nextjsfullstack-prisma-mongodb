@@ -13,6 +13,7 @@ export async function POST(request: NextRequest) {
       emailAddress,
       password,
       gender,
+      salary,
       income,
     } = await request.json();
 
@@ -54,6 +55,7 @@ export async function POST(request: NextRequest) {
         role,
         department,
         gender,
+        salary,
         emailAddress,
         password: hashedPassword,
         income: {
@@ -72,5 +74,18 @@ export async function POST(request: NextRequest) {
       message: "Something went wront" + error,
       status: 500,
     });
+  }
+}
+
+export async function GET() {
+  try {
+    const records = await prisma.employee.findMany();
+    if (!records) {
+      return NextResponse.json({ message: "No data available at moment" });
+    }
+
+    return NextResponse.json({ success: true, employees: records });
+  } catch (error) {
+    return NextResponse.json({ message: "Unable to get data", status: 500 });
   }
 }
