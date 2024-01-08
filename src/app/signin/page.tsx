@@ -35,13 +35,15 @@ function Form() {
   };
 
   return (
-    <div className="flex h-screen justify-center items-center">
+    <div className="flex h-screen justify-center items-center w-full bg-gray-300">
+    <div className=" bg-white rounded-md shadow-lg p-5 w-1/3">
       <form onSubmit={handleSubmit(onSubmit)}>
+        <p className="text-3xl text-blue-500 text-center p-4 font-semibold">Sign in</p>
         <div className="mb-4 w-full">
-          <label htmlFor="login-email">Email</label>
+          <label htmlFor="login-email">Email Address</label>
           <div className="relative">
           <input
-            className="border-2 p-1 border-blue-400 w-full"
+            className="border-2 p-1 border-blue-400 w-full mt-2"
             autoFocus
             id="login-email"
             type="email"
@@ -70,7 +72,7 @@ function Form() {
               id="login-password"
               type={showPass ? "text" : "password"}
               placeholder="Enter your password"
-              className="p-1 w-full border-gray-500 border-2"
+              className="p-1 w-full border-gray-500 border-2 mt-2"
               {...register("password", {
                 required: "Password is required",
                 pattern: {
@@ -96,6 +98,7 @@ function Form() {
           Login
         </button>
       </form>
+    </div>
     </div>
   );
 }

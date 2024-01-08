@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     console.log(reqBody);
 
     //check if user exists
-    const user = await prisma.employee.findUnique({ where: { emailAddress } });
+    const user = await prisma.employee.findFirst({ where: { emailAddress } });
     if (!user) {
       return NextResponse.json(
         { error: "User does not exist" },
@@ -49,8 +49,8 @@ export async function POST(request: NextRequest) {
       httpOnly: true,
     });
     return response;
-    
+
   } catch (error) {
-    return NextResponse.json({ message: "Unable to login" }, { status: 500 });
+    return NextResponse.json({ message: "Unable to login" + error }, { status: 500 });
   }
 }
