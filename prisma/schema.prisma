@@ -34,6 +34,7 @@ model Employee {
   phoneNumber   String @unique
   role  String
   department String
+  gender String
   emailAddress String @unique
   password String
   income        Income[]  // Define the array of income objects
@@ -49,4 +50,9 @@ model Income {
   amount     Int
   employee   Employee  @relation(fields: [employeeId], references: [id])
   employeeId String    @db.ObjectId
+}
+
+enum Role {
+  user
+  admin
 }
