@@ -46,6 +46,7 @@ export async function POST(request: NextRequest) {
       httpOnly: true,
     });
     return response;
+
   } catch (error) {
     return NextResponse.json(
       { message: "Unable to login" + error },
