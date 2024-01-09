@@ -32,8 +32,8 @@ model Employee {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId
   fullName    String
   phoneNumber   String @unique
-  role  String
   department String
+  role String?
   gender String @default("Male")
   salary String @default("5000.00")
   emailAddress String @unique

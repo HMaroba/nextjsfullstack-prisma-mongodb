@@ -8,8 +8,8 @@ export async function POST(request: NextRequest) {
     const {
       fullName,
       phoneNumber,
-      role,
       department,
+      role,
       emailAddress,
       password,
       gender,
@@ -25,6 +25,8 @@ export async function POST(request: NextRequest) {
         }
       );
     }
+
+    await prisma.$connect();
 
     const userExists = await prisma.employee.findFirst({
       where: { emailAddress },
