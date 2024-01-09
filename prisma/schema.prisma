@@ -11,46 +11,56 @@ datasource db {
 }
 
 model Post {
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
-  title    String
-  description     String
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  author   User      @relation(fields: [authorId], references: [id])
-  authorId String    @db.ObjectId
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  author      User     @relation(fields: [authorId], references: [id])
+  authorId    String   @db.ObjectId
 }
 
 model User {
-  id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  email   String   @unique
-  phoneNumber String @unique
-  name    String?
-  posts   Post[]
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  email       String  @unique
+  phoneNumber String  @unique
+  name        String?
+  posts       Post[]
 }
 
 model Employee {
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
-  fullName    String
-  phoneNumber   String @unique
-  department String
-  role String?
-  gender String @default("Male")
-  salary String @default("5000.00")
-  emailAddress String @unique
-  password String
-  income        Income[]  // Define the array of income objects
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  fullName     String
+  phoneNumber  String    @unique
+  department   String
+  role         String?
+  gender       String    @default("Male")
+  salary       String    @default("5000.00")
+  emailAddress String    @unique
+  password     String
+  income       Income[] // Define the array of income objects
+  account      Account[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 }
 
 model Income {
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
   fieldName  String
   fieldLabel String
   amount     Int
-  employee   Employee  @relation(fields: [employeeId], references: [id])
-  employeeId String    @db.ObjectId
+  employee   Employee @relation(fields: [employeeId], references: [id])
+  employeeId String   @db.ObjectId
+}
+
+model Account {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  accountName String
+  accountType String
+  branch      String?
+  holderName  String
+  employee    Employee @relation(fields: [employeeId], references: [id])
+  employeeId  String   @db.ObjectId
 }
 
 enum Role {
