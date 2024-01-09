@@ -73,9 +73,9 @@ model User {
 Then when you encounter a missing phoneNumber, the value will be coerced into 000-000-0000.
 
 
-
 ## Examples of Prisma relations 
 
 Open [https://www.prisma.io/docs/orm/prisma-schema/data-model/relations](https://www.prisma.io/docs/orm/prisma-schema/data-model/relations)
+
 
 

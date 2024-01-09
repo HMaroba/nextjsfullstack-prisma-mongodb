@@ -70,6 +70,8 @@ export default function Home() {
             Add Custom Role
           </button>
         </div>
+
+        <button className="mt-5 bg-black text-white rounded-md p-2">Send Notification</button>
       </div>
     </main>
   );
