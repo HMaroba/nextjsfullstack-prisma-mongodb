@@ -15,6 +15,7 @@ export async function POST(request: NextRequest) {
       gender,
       salary,
       income,
+      account,
     } = await request.json();
 
     if (!emailAddress || !password || !phoneNumber || !fullName) {
@@ -62,6 +63,9 @@ export async function POST(request: NextRequest) {
         password: hashedPassword,
         income: {
           create: income,
+        },
+        account: {
+          create: account,
         },
       },
     });
