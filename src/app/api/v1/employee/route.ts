@@ -85,7 +85,16 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   try {
-    const records = await prisma.employee.findMany();
+    //Employees data only
+    const employeeRecords = await prisma.employee.findMany();
+    
+    // Employees with their incomes
+    const records = await prisma.employee.findMany({
+      include: {
+        income: true,
+      },
+    });
+
     if (!records) {
       return NextResponse.json({ message: "No data available at moment" });
     }
