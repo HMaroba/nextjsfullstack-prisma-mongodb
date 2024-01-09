@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+
+import React, { useCallback, useEffect, useState } from "react";
 
 export default function Home() {
   const [selectedRole, setSelectedRole] = useState("");
@@ -31,9 +32,32 @@ export default function Home() {
       // Clear the custom role input
       setCustomRole("");
       console.log(roles);
-      
     }
   };
+
+  const sendNotification = () => {
+    if ("Notification" in window && Notification.permission === "granted") {
+      new Notification("Lebelo Updates", {
+        body: "System is going to go down",
+      });
+    }
+  };
+
+  const requestPermission = useCallback(() => {
+    if ("Notification" in window) {
+      Notification.requestPermission().then(function (permission: any) {
+        if (permission === "granted") {
+          sendNotification();
+        }
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    if ("Notification" in window) {
+      requestPermission();
+    }
+  }, [requestPermission]);
 
   return (
     <main className="flex min-h-screen items-center justify-center">
@@ -71,7 +95,12 @@ export default function Home() {
           </button>
         </div>
 
-        <button className="mt-5 bg-black text-white rounded-md p-2">Send Notification</button>
+        <button
+          className="mt-5 bg-black text-white rounded-md p-2"
+          onClick={sendNotification}
+        >
+          Send Notification
+        </button>
       </div>
     </main>
   );
