@@ -78,4 +78,10 @@ Then when you encounter a missing phoneNumber, the value will be coerced into 00
 Open [https://www.prisma.io/docs/orm/prisma-schema/data-model/relations](https://www.prisma.io/docs/orm/prisma-schema/data-model/relations)
 
 
+## Examples of Prisma Relation queries 
+
+Open [https://www.prisma.io/docs/orm/prisma-client/queries/relation-queries](https://www.prisma.io/docs/orm/prisma-client/queries/relation-queries)
+
+
+
 
