@@ -83,11 +83,17 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
     //Employees data only
     const employeeRecords = await prisma.employee.findMany();
-    
+
+    //Pagination
+    const employeeRecords1 = await prisma.employee.findMany({
+      skip: 4,
+      take: 3
+    });
+
     // Employees with their incomes
     const records = await prisma.employee.findMany({
       include: {
@@ -99,8 +105,11 @@ export async function GET() {
       return NextResponse.json({ message: "No data available at moment" });
     }
 
-    return NextResponse.json({ success: true, employees: records });
+    return NextResponse.json({ success: true, employees: employeeRecords1 });
   } catch (error) {
-    return NextResponse.json({ message: "Unable to get data", status: 500 });
+    return NextResponse.json({
+      message: "Unable to get data" + error,
+      status: 500,
+    });
   }
 }
