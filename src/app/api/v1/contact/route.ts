@@ -6,7 +6,9 @@ export async function POST(req: Request) {
   try {
     const { email, phoneNumber, firstName, lastName } = await req.json();
 
-    const userExits = await prisma.contact.findUnique({ where: { email } });
+    await prisma.$connect();
+
+    const userExits = await prisma.contact.findFirst({ where: { email } });
     if (userExits) {
       return NextResponse.json({
         success: false,
@@ -14,9 +16,23 @@ export async function POST(req: Request) {
         status: 422,
       });
     }
+
+    const contactInfo = await prisma.contact.create({
+      data: {
+        email,
+        firstName,
+        lastName,
+        phoneNumber,
+      },
+    });
+    return NextResponse.json({
+      message: "Contact created successfully",
+      status: 201,
+      data: contactInfo,
+    });
   } catch (error) {
     return NextResponse.json({
-      message: "Error creating contact",
+      message: "Error creating contact" + error,
       status: 500,
       success: false,
     });
