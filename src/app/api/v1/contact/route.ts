@@ -25,6 +25,7 @@ export async function POST(req: Request) {
         phoneNumber,
       },
     });
+
     return NextResponse.json({
       message: "Contact created successfully",
       status: 201,
