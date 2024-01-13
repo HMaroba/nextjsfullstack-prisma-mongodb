@@ -4,17 +4,17 @@ const prisma = new PrismaClient();
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { email: string } }
 ) {
-  const { id } = params;
+  const { email } = params;
 
   try {
-    const users = await prisma.user.findFirst({
-      where: { id: String(id) },
+    const users = await prisma.contact.findFirst({
+      where: { email: String(email) },
     });
 
-    const userId = await prisma.user.findFirst({
-        where: { id: String(id) },
+    const userId = await prisma.contact.findFirst({
+        where: { email: String(email) },
       });
   
       if (!userId) {
