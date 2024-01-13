@@ -32,6 +32,7 @@ model Contact {
   id          String  @id @default(auto()) @map("_id") @db.ObjectId
   email       String  @unique
   phoneNumber String  @unique
+  employeeId String?  
   firstName        String
   lastName         String
 }
