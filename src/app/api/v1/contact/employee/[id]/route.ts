@@ -9,8 +9,8 @@ export async function GET(
   const { id } = params;
 
   try {
-    const users = await prisma.contact.findUnique({
-      where: { id },
+    const users = await prisma.contact.findFirst({
+      where: { employeeId: String(id) },
     });
 
     return NextResponse.json(users);
