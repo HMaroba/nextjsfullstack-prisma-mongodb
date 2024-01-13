@@ -39,3 +39,15 @@ export async function POST(req: Request) {
     });
   }
 }
+
+export async function GET(){
+  try {
+    
+  } catch (error) {
+        return NextResponse.json({
+      message: "Error getting contacts" + error,
+      status: 500,
+      success: false,
+    });
+  }
+}
