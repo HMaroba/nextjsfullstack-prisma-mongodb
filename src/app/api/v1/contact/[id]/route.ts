@@ -4,13 +4,13 @@ const prisma = new PrismaClient();
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { email: string } }
 ) {
-  const { id } = params;
+  const { email } = params;
 
   try {
     const users = await prisma.contact.findUnique({
-      where: { id: String(id) },
+      where: { email: String(email) },
     });
 
     return NextResponse.json(users);
