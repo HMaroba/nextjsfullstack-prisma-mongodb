@@ -23,9 +23,9 @@ export async function POST(req: Request) {
     // Validate the request body against the schema
     try {
       contactSchema.parse(body);
-    } catch (error: any) {
+    } catch (error) {
       return NextResponse.json(
-        { error: "Invalid request body", details: error.errors },
+        { error: "Invalid request body", details: error },
         { status: 400 }
       );
     }
