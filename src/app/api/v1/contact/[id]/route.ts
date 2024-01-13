@@ -26,20 +26,13 @@ export async function DELETE(
   const { id } = params;
 
   try {
-    const userId = await prisma.user.findFirst({
+    const contactId = await prisma.contact.findFirst({
       where: { id: String(id) },
     });
-
-    if (!userId) {
-      return NextResponse.json({
-        message: "User does not exists",
-        success: false,
-      });
-    }
     await prisma.user.delete({
       where: { id: String(id) },
     });
-    return NextResponse.json({ msg: "User deleted successfully" });
+    return NextResponse.json({ msg: "Contact deleted successfully" });
   } catch (error) {
     return new NextResponse("Something went wrong", { status: 500 });
   }
