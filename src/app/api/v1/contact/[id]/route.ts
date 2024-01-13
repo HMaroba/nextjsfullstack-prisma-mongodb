@@ -1,28 +1,17 @@
-import {  NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export async function GET(
   request: Request,
-  { params }: { params: { email: string } }
+  { params }: { params: { id: string } }
 ) {
-  const { email } = params;
+  const { id } = params;
 
   try {
-    const users = await prisma.contact.findFirst({
-      where: { email: String(email) },
+    const users = await prisma.contact.findUnique({
+      where: { id: String(id) },
     });
-
-    const userId = await prisma.contact.findFirst({
-        where: { email: String(email) },
-      });
-  
-      if (!userId) {
-        return NextResponse.json({
-          message: "User does not exists",
-          success: false,
-        });
-      }
 
     return NextResponse.json(users);
   } catch (error) {
