@@ -40,11 +40,22 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET(){
+export async function GET() {
   try {
-    
+    const contacts = await prisma.contact.findMany();
+
+    if (!contacts) {
+      return NextResponse.json({
+        message: "No Contacts found",
+      });
+    }
+
+    return NextResponse.json({
+      success: true,
+      Usercontacts: contacts,
+    });
   } catch (error) {
-        return NextResponse.json({
+    return NextResponse.json({
       message: "Error getting contacts" + error,
       status: 500,
       success: false,
