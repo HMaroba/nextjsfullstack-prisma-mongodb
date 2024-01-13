@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
   try {
-    const { email, phoneNumber, firstName, lastName } = await req.json();
+    const { email, phoneNumber, firstName, lastName, employeeId } = await req.json();
 
     await prisma.$connect();
 
@@ -17,12 +17,21 @@ export async function POST(req: Request) {
       });
     }
 
+    const employeeExists = await prisma.employee.findUnique({where : { id : employeeId}});
+    if (!employeeExists) {
+       return NextResponse.json({
+        message : 'Employee does not exists',
+        success : false,
+       })
+    }
+
     const contactInfo = await prisma.contact.create({
       data: {
         email,
         firstName,
         lastName,
         phoneNumber,
+        employeeId,
       },
     });
 
