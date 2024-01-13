@@ -9,7 +9,7 @@ export async function GET(
   const { id } = params;
 
   try {
-    const users = await prisma.contact.findFirst({
+    const users = await prisma.contact.findMany({
       where: { employeeId: String(id) },
     });
 
