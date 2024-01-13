@@ -8,7 +8,7 @@ export async function POST(req: Request) {
 
     await prisma.$connect();
 
-    const userExits = await prisma.contact.findFirst({ where: { email } });
+    const userExits = await prisma.contact.findFirst({ where: { email, phoneNumber } });
     if (userExits) {
       return NextResponse.json({
         success: false,
