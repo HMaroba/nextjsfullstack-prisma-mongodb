@@ -1,6 +1,18 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
+import { z } from "zod";
+
+// Define the schema for the request body using Zod
+const contactSchema = z.object({
+  email: z.string().email({ message: "Invalid email address" }),
+  firstName: z.string().min(1, { message: "First name is required" }),
+  phoneNumber: z.string().regex(/^\d{8}$/, {
+    message: "Invalid phone number, should be 8 numeric characters",
+  }),
+  lastNname: z.string().min(1, { message: "Last name is required" }),
+  employeeId: z.string().min(1, { message: "EMployee id is required" }),
+});
 
 export async function POST(req: Request) {
   try {
