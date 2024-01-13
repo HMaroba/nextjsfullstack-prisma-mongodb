@@ -10,17 +10,33 @@ const contactSchema = z.object({
   phoneNumber: z.string().regex(/^\d{8}$/, {
     message: "Invalid phone number, should be 8 numeric characters",
   }),
-  lastNname: z.string().min(1, { message: "Last name is required" }),
+  lastName: z.string().min(1, { message: "Last name is required" }),
   employeeId: z.string().min(1, { message: "EMployee id is required" }),
 });
 
 export async function POST(req: Request) {
   try {
-    const { email, phoneNumber, firstName, lastName, employeeId } = await req.json();
+
+
+    const body = await req.json();
+
+    // Validate the request body against the schema
+    try {
+      contactSchema.parse(body);
+    } catch (error: any) {
+      return NextResponse.json(
+        { error: "Invalid request body", details: error.errors },
+        { status: 400 }
+      );
+    }
+    const { email, phoneNumber, firstName, lastName, employeeId } = body;
 
     await prisma.$connect();
 
-    const userExits = await prisma.contact.findFirst({ where: { email, phoneNumber } });
+
+    const userExits = await prisma.contact.findFirst({
+      where: { email, phoneNumber },
+    });
     if (userExits) {
       return NextResponse.json({
         success: false,
@@ -29,12 +45,14 @@ export async function POST(req: Request) {
       });
     }
 
-    const employeeExists = await prisma.employee.findUnique({where : { id : employeeId}});
+    const employeeExists = await prisma.employee.findUnique({
+      where: { id: employeeId },
+    });
     if (!employeeExists) {
-       return NextResponse.json({
-        message : 'Employee does not exists',
-        success : false,
-       })
+      return NextResponse.json({
+        message: "Employee does not exists",
+        success: false,
+      });
     }
 
     const contactInfo = await prisma.contact.create({
