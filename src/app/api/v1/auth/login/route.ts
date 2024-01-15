@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
           },
         });
       } else {
-        const minutesLeft = Math.ceil(5 - timeDifferenceInMinutes);
+        const minutesLeft = Math.ceil(30 - timeDifferenceInMinutes);
         return NextResponse.json(
           // { error: "Account is blocked. Please contact support." },
           { error: `Account is blocked. Please wait ${minutesLeft} minutes and try again.` },
