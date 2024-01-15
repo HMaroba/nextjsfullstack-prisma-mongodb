@@ -20,7 +20,6 @@ export async function POST(request: NextRequest) {
     }
 
     console.log(user);
-    
 
     // Check if the account is blocked
     // if (user.blocked) {
@@ -62,16 +61,18 @@ export async function POST(request: NextRequest) {
 
     if (!validPassword) {
       // Increment login attempts only when the password is incorrect
-      await prisma.employee.update({
-        where: { id: user.id },
-        data: {
-          attempts: user.attempts + 1,
-          lastLoginAttempt: new Date(),
-        },
-      });
+      if (user.attempts !== user.maxAttempts) {
+        await prisma.employee.update({
+          where: { id: user.id },
+          data: {
+            attempts: user.attempts + 1,
+            lastLoginAttempt: new Date(),
+          },
+        });
+      }
 
       // Check if max attempts reached and block the account
-      if (user.attempts + 1 === user.maxAttempts) {
+      if (user.attempts === user.maxAttempts) {
         // Block the account if max attempts reached
         await prisma.employee.update({
           where: { id: user.id },
@@ -97,6 +98,7 @@ export async function POST(request: NextRequest) {
       where: { id: user.id },
       data: {
         attempts: 0,
+        blocked: false,
         lastLoginAttempt: null,
       },
     });
