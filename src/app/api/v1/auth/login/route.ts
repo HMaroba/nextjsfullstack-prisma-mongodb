@@ -19,10 +19,41 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Check if the account is blocked
+    if (user.blocked) {
+      return NextResponse.json(
+        { error: "Account is blocked. Please contact support." },
+        { status: 403 }
+      );
+    }
     //check if password is correct
     const validPassword = await bcryptjs.compare(password, user.password);
 
     if (!validPassword) {
+      // Increment login attempts only when the password is incorrect
+      await prisma.employee.update({
+        where: { id: user.id },
+        data: {
+          attempts: user.attempts + 1,
+          lastLoginAttempt: new Date(),
+        },
+      });
+
+      // Check if max attempts reached and block the account
+      if (user.attempts + 1 >= user.maxAttempts) {
+        // Block the account if max attempts reached
+        await prisma.employee.update({
+          where: { id: user.id },
+          data: {
+            blocked: true,
+          },
+        });
+        return NextResponse.json(
+          { error: "Account is blocked. Please contact support." },
+          { status: 403 }
+        );
+      }
+
       return NextResponse.json({ error: "Invalid password" }, { status: 400 });
     }
 
