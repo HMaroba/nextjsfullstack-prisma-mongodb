@@ -32,9 +32,9 @@ model Contact {
   id          String  @id @default(auto()) @map("_id") @db.ObjectId
   email       String  @unique
   phoneNumber String  @unique
-  employeeId String?  
-  firstName        String
-  lastName         String
+  employeeId  String?
+  firstName   String
+  lastName    String
 }
 
 model Employee {
@@ -42,13 +42,15 @@ model Employee {
   fullName     String
   phoneNumber  String    @unique
   department   String
+  attempts     Int       @default(3)
+  blocked      Boolean @default(false)
   role         String?
   gender       String    @default("Male")
   salary       String    @default("5000.00")
   emailAddress String    @unique
   password     String
   income       Income[] // Employee and Income is one to many because one employee can have mutliple incomes
-  account      Account[]  //One to One because one EMployee can only have 1 Account
+  account      Account[] //One to One because one EMployee can only have 1 Account
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 }
@@ -63,15 +65,15 @@ model Income {
 }
 
 model Account {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
   accountName String
   accountType String
   branch      String?
   holderName  String
-  employee    Employee @relation(fields: [employeeId], references: [id])
-  employeeId  String   @db.ObjectId
-  createdAt    DateTime?  @default(now())
-  updatedAt    DateTime?  @updatedAt
+  employee    Employee  @relation(fields: [employeeId], references: [id])
+  employeeId  String    @db.ObjectId
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
 }
 
 enum Role {
