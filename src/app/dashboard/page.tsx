@@ -3,6 +3,11 @@
 import React from "react";
 import { useQuery } from "react-query";
 
+
+type IEmployee = {
+    fullName : string;
+}
+
 export default function Dashboard() {
   const getEmployees = async () => {
     const response = await fetch("/api/v1/employee");
@@ -37,7 +42,7 @@ export default function Dashboard() {
     <div className="p-20">
       <p className="text-2xl">Employee Data</p>
       <div className="p-3 text-lg text-blue-600">
-        {employeeInfo.map((user: any, index: number) => (
+        {employeeInfo.map((user : IEmployee, index: number) => (
           <p key={index}>{user.fullName}</p>
         ))}
       </div>
