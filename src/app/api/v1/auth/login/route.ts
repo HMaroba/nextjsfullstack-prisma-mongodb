@@ -47,7 +47,9 @@ export async function POST(request: NextRequest) {
         const minutesLeft = Math.ceil(15 - timeDifferenceInMinutes);
         return NextResponse.json(
           // { error: "Account is blocked. Please contact support." },
-          { error: `Account is blocked. Please wait ${minutesLeft} minutes and try again.` },
+          {
+            error: `Account is blocked. Please wait ${minutesLeft} minutes and try again.`,
+          },
           { status: 403 }
         );
       }
@@ -80,7 +82,11 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      return NextResponse.json({ error: "Invalid password" }, { status: 400 });
+      const leftAttemps = user.maxAttempts - user.attempts;
+      return NextResponse.json(
+        { error: `Invalid password ${leftAttemps} attempts left` },
+        { status: 400 }
+      );
     }
 
     // Reset login attempts on successful login
