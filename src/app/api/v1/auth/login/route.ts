@@ -19,6 +19,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    console.log(user);
+    
+
     // Check if the account is blocked
     // if (user.blocked) {
     //   return NextResponse.json(
@@ -68,7 +71,7 @@ export async function POST(request: NextRequest) {
       });
 
       // Check if max attempts reached and block the account
-      if (user.attempts + 1 >= user.maxAttempts) {
+      if (user.attempts + 1 === user.maxAttempts) {
         // Block the account if max attempts reached
         await prisma.employee.update({
           where: { id: user.id },
