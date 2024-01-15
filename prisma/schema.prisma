@@ -42,8 +42,9 @@ model Employee {
   fullName     String
   phoneNumber  String    @unique
   department   String
-  attempts     Int       @default(3)
-  blocked      Boolean @default(false)
+  attempts     Int       @default(0) // Change the default attempts to 0
+  maxAttempts  Int       @default(3) // Maximum number of login attempts allowed
+  blocked      Boolean   @default(false)
   role         String?
   gender       String    @default("Male")
   salary       String    @default("5000.00")
