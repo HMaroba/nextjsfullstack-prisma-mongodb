@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import "./globals.css";
+import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+
+const queryClient = new QueryClient();
 
 const inter = Open_Sans({ subsets: ["latin"] });
 
@@ -16,7 +19,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+       <QueryClientProvider client={queryClient}>
       <body className={inter.className}>{children}</body>
+      </QueryClientProvider>
     </html>
   );
 }
