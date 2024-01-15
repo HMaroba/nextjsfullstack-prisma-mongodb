@@ -32,12 +32,13 @@ export default function Dashboard() {
     );
   }
 
-  console.log(userData);
+  const employeeInfo = userData.employee;
+  console.log(employeeInfo);
 
   return (
     <div>
       <div className="p-20 text-lg text-blue">
-        {userData.map((user: any, index: number) => (
+        {employeeInfo.map((user: any, index: number) => (
           <p key={index}>{user.fullName}</p>
         ))}
       </div>
