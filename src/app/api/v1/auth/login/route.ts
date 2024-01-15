@@ -20,11 +20,35 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if the account is blocked
+    // if (user.blocked) {
+    //   return NextResponse.json(
+    //     { error: "Account is blocked. Please contact support." },
+    //     { status: 403 }
+    //   );
+    // }
+    // Check if the account is blocked
     if (user.blocked) {
-      return NextResponse.json(
-        { error: "Account is blocked. Please contact support." },
-        { status: 403 }
-      );
+      const blockTime = user.lastLoginAttempt?.getTime() || 0;
+      const currentTime = new Date().getTime();
+      const timeDifferenceInMinutes = (currentTime - blockTime) / (1000 * 60);
+
+      // Check if 30 minutes have passed since the account was blocked
+      if (timeDifferenceInMinutes >= 30) {
+        // Unblock the account
+        await prisma.employee.update({
+          where: { id: user.id },
+          data: {
+            blocked: false,
+            attempts: 0,
+            lastLoginAttempt: null,
+          },
+        });
+      } else {
+        return NextResponse.json(
+          { error: "Account is blocked. Please contact support." },
+          { status: 403 }
+        );
+      }
     }
     //check if password is correct
     const validPassword = await bcryptjs.compare(password, user.password);
