@@ -40,13 +40,13 @@ export async function POST(request: NextRequest) {
     if (userExists) {
       return NextResponse.json({
         message: "User already exists",
-        status: 400,
+        status: 409,
       });
     }
     if (userPhoneExists) {
       return NextResponse.json({
         message: "User with this phone number already exists",
-        status: 400,
+        status: 409,
       });
     }
 
