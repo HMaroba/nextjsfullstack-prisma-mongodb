@@ -18,28 +18,11 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
-    const attempts = user.attempts;
-    const updatedAttemts = attempts - 1;
-    const userId = user.id;
-    if (attempts === 0) {
-      return NextResponse.json(
-        { error: "User finished login attempts" },
-        { status: 400 }
-      );
-    }
-
-   
-    
-    
 
     //check if password is correct
     const validPassword = await bcryptjs.compare(password, user.password);
 
     if (!validPassword) {
-      await prisma.employee.update({
-        where: { id: String(userId) },
-        data: { attempts: updatedAttemts },
-      });
       return NextResponse.json({ error: "Invalid password" }, { status: 400 });
     }
 
