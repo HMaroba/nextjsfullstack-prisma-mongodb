@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
       const timeDifferenceInMinutes = (currentTime - blockTime) / (1000 * 60);
 
       // Check if 30 minutes have passed since the account was blocked
-      if (timeDifferenceInMinutes >= 15) {
+      if (timeDifferenceInMinutes >= 10) {
         // Unblock the account
         await prisma.employee.update({
           where: { id: user.id },
@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
           },
         });
       } else {
-        const minutesLeft = Math.ceil(15 - timeDifferenceInMinutes);
+        const minutesLeft = Math.ceil(10 - timeDifferenceInMinutes);
         return NextResponse.json(
           // { error: "Account is blocked. Please contact support." },
           {
