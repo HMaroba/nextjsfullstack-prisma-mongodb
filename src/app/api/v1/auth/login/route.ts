@@ -57,6 +57,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid password" }, { status: 400 });
     }
 
+    // Reset login attempts on successful login
+    await prisma.employee.update({
+      where: { id: user.id },
+      data: {
+        attempts: 0,
+        lastLoginAttempt: null,
+      },
+    });
+
     //create token data
     const tokenData = {
       id: user.id,
