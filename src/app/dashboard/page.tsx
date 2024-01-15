@@ -33,6 +33,14 @@ export default function Dashboard() {
   }
 
   console.log(userData);
-  
-  return <div></div>;
+
+  return (
+    <div>
+      <div className="p-20 text-lg text-blue">
+        {userData.map((user: any, index: number) => (
+          <p key={index}>{user.fullName}</p>
+        ))}
+      </div>
+    </div>
+  );
 }
