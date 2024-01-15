@@ -9,7 +9,6 @@ export async function POST(request: NextRequest) {
     const reqBody = await request.json();
 
     const { emailAddress, password } = reqBody;
-    console.log(reqBody);
 
     //check if user exists
     const user = await prisma.employee.findFirst({ where: { emailAddress } });
@@ -19,6 +18,13 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+    const attempts = user.attempts;
+    if (attempts === 0) {
+      return NextResponse.json(
+        { error: "User finished login attempts" },
+        { status: 400 }
+      );
+    } 
 
     //check if password is correct
     const validPassword = await bcryptjs.compare(password, user.password);
@@ -46,7 +52,6 @@ export async function POST(request: NextRequest) {
       httpOnly: true,
     });
     return response;
-
   } catch (error) {
     return NextResponse.json(
       { message: "Unable to login" + error },

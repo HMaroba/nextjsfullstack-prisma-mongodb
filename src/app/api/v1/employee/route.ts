@@ -105,7 +105,7 @@ export async function GET(req: Request) {
       return NextResponse.json({ message: "No data available at moment" });
     }
 
-    return NextResponse.json({ success: true, employees: employeeRecords1 });
+    return NextResponse.json({ success: true, employees: employeeRecords });
   } catch (error) {
     return NextResponse.json({
       message: "Unable to get data" + error,
