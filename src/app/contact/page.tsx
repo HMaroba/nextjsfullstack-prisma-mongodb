@@ -1,12 +1,16 @@
-
-import React from 'react'
+"use client";
+import React, { useState } from "react";
 
 export default function ContactPage() {
+  const [showMore, setShowMore] = useState(false);
   return (
-    <div className='bg-gray-200 p-10 h-screen'>
-     <div className='p-2 bg-white min-h-40'>
+    <div className="bg-gray-200 p-10 h-screen">
+      <div className="p-2 bg-white min-h-40">
         <p>Contact us page</p>
-     </div>
+        <button className="mt-4 text-white bg-black rounded-md p-2">
+          Check More
+        </button>
+      </div>
     </div>
-  )
+  );
 }

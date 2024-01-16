@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { hash } from "bcryptjs";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, User } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export async function POST(request: NextRequest) {
@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
       income,
       account,
     } = await request.json();
-
+    
     if (!emailAddress || !password || !phoneNumber || !fullName) {
       return NextResponse.json(
         { success: false, message: "Please provide all fields" },
