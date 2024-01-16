@@ -12,7 +12,7 @@ export default function ContactPage() {
       <div className="p-2 bg-white min-h-40">
         <p>Contact us page</p>
         <button
-          className="mt-4 text-white bg-black rounded-md p-2 hover:rounded-sm"
+          className="mt-4 text-white bg-black rounded-md p-2"
           onClick={show}
         >
           {showMore ? "Hide" : "Show more data"}
