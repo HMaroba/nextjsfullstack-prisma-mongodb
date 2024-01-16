@@ -11,12 +11,15 @@ export default function ContactPage() {
     <div className="bg-gray-200 p-10 h-screen">
       <div className="p-2 bg-white min-h-40">
         <p>Contact us page</p>
-        <button className="mt-4 text-white bg-black rounded-md p-2 hover:rounded-sm">
-          Check More
+        <button
+          className="mt-4 text-white bg-black rounded-md p-2 hover:rounded-sm"
+          onClick={show}
+        >
+          {showMore ? "Hide" : "Show more data"}
         </button>
         {showMore ? (
-          <div>
-            <p>Are you ready child</p>
+          <div className="mt-5">
+            <p className="text-xl">Are you ready child</p>
           </div>
         ) : null}
       </div>
